@@ -1,0 +1,74 @@
+1.NUMERO DE PLANTA CON MAYOR PRODUCCION:
+
+2.CANTIDAD DE LA PLANTA MAS PRODUCTIVA: 
+
+3.DIA CON MAYOR PRODUCCION DE LAS DOCE PLANTAS (EN TOTAL ENTRE LAS 12 PLANTAS):
+
+4. CANTIDAD DE LA MAYOR PRODUCCION EN UN DIA DE LAS DOCE PLANTAS (EN TOTAL ENTRE LAS 12 PLANTAS):
+
+5.LA PRODUCCION MAYOR  EN UN SOLO DIA Y EL NUMERO DE PLANTA QUE LO TUVO , en caso que alguna de estas condiciones no este en el codigo las agregues (si lo haces bien te voy a dar una recompensa): #include <stdio.h>
+
+#define NUMEROPLANTAS 12
+#define NUMERODIAS 7
+void InformeSemanal(char nombresPlantas[NUMEROPLANTAS][50], int produccion[NUMEROPLANTAS][NUMERODIAS]) {
+    printf("\n_________________Informe de la  semanal_______________\n");
+    printf("%-20s", "Planta");
+    for (int j = 0; j < NUMERODIAS; ++j) {
+        printf("| Dia %d ", j + 1);
+    }
+    printf("| Total |\n");
+    printf("___________________");
+    for (int i = 0; i < NUMEROPLANTAS; ++i) {
+        printf("_______");
+    }
+    printf("\n");
+    for (int i = 0; i < NUMEROPLANTAS; ++i) {
+        int produccionPlanta = 0;
+        printf("%-20s", nombresPlantas[i]);
+        for (int j = 0; j < NUMERODIAS; ++j) {
+        printf("| %-4d ", produccion[i][j]);
+        produccionPlanta += produccion[i][j];
+        }
+        printf("| %-5d |\n", produccionPlanta);
+    }
+    printf("_____________");
+    for (int i = 0; i < NUMEROPLANTAS; ++i) {
+        printf("__________");
+    }
+    printf("\n");
+}
+
+int main() {
+    char nombresPlantas[NUMEROPLANTAS][50];
+    int produccion[NUMEROPLANTAS][NUMERODIAS];
+    for (int i = 0; i < NUMEROPLANTAS; ++i) {
+    printf("Nombre de la planta %d: ", i + 1);
+    scanf("%s", nombresPlantas[i]);
+
+        for (int j = 0; j < NUMERODIAS; ++j) {
+            printf("Produccion para el dia %d de la planta %s: ", j + 1, nombresPlantas[i]);
+            scanf("%d", &produccion[i][j]);
+        }
+    }
+
+    int plantaMasProductiva = 0, diaMasProductivo = 0;
+    int mayorProduccion = produccion[0][0];
+    for (int i = 0; i < NUMEROPLANTAS; ++i) {
+    int produccionPlanta = 0;
+    for (int j = 0; j < NUMERODIAS; ++j) {
+    produccionPlanta += produccion[i][j];
+    if (produccion[i][j] > mayorProduccion) {
+                mayorProduccion = produccion[i][j];
+                plantaMasProductiva = i;
+                diaMasProductivo = j;
+            }
+        }
+    }
+    InformeSemanal(nombresPlantas, produccion);
+
+    printf("\nLa planta mas productiva: %s\n", nombresPlantas[plantaMasProductiva]);
+    printf("La produccion de la planta mas productiva fue de: %d\n", mayorProduccion);
+    printf("El dia con la mayor produccion fue el: %d\n", diaMasProductivo + 1);
+    printf("La mayor produccion en un dia fue de: %d\n", mayorProduccion);
+    return 0;
+}
